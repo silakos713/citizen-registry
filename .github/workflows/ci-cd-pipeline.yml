@@ -26,8 +26,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Install Parent POM
+        run: mvn -N install
+
       - name: Build with Maven
-        run: mvn clean compile
+        run: mvn clean install
 
   unit-tests:
     name: Unit Tests
