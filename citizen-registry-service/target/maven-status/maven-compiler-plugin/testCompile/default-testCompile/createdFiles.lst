@@ -1,0 +1,4 @@
+com\example\service\controller\CitizenControllerTest.class
+com\example\service\domain\CitizenTest.class
+com\example\service\repository\CitizenRepositoryTest.class
+com\example\service\service\CitizenServiceTest.class

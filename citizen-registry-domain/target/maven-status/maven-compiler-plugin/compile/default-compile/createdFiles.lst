@@ -1,0 +1,3 @@
+com\example\domain\LocalDateSerializer.class
+com\example\domain\Citizen.class
+com\example\domain\LocalDateDeserializer.class
