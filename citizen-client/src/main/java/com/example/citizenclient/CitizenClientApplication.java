@@ -141,7 +141,7 @@ public class CitizenClientApplication implements CommandLineRunner {
                     }
                 })
                 .doOnError(e -> System.out.println("Σφάλμα: " + e.getMessage()))
-                .block(); // Περιμένει το αποτέλεσμα
+                .block();
     }
 
 

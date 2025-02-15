@@ -36,10 +36,9 @@ public class Citizen {
     @Column(name = "address")
     private String address;
 
-    // Constructor χωρίς ορίσματα (απαραίτητο για JPA)
     public Citizen() {}
 
-    // Constructor με όλα τα πεδία
+  
     public Citizen(String id, String firstName, String lastName, String gender, String birthDate, String afm, String address) {
         this.id = id;
         this.firstName = firstName;

@@ -38,9 +38,9 @@ public class CitizenService {
         Optional<Citizen> citizen = citizenRepository.findById(id);
         if (citizen.isPresent()) {
             citizenRepository.deleteById(id);
-            return true; // Αν υπήρχε και διαγράφηκε, επιστρέφει true
+            return true; 
         }
-        return false; // Αν δεν υπήρχε, επιστρέφει false
+        return false; 
     }
 
 }

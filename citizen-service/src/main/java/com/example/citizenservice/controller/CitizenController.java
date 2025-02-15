@@ -18,7 +18,7 @@ public class CitizenController {
         this.citizenService = citizenService;
     }
 
-    // 🔹 GET /api/citizens - Επιστρέφει όλους τους πολίτες
+    // 🔹 GET /api/citizens
     @GetMapping
     public ResponseEntity<List<Citizen>> getAllCitizens() {
         List<Citizen> citizens = citizenService.getAllCitizens();
@@ -28,7 +28,7 @@ public class CitizenController {
         return ResponseEntity.ok(citizens); // Αν υπάρχουν πολίτες, επιστρέφει 200 OK
     }
 
-    // 🔹 GET /api/citizens/{id} - Αναζήτηση πολίτη με βάση το ID
+    // 🔹 GET /api/citizens/{id} - Αναζήτηση με βάση το ID
     @GetMapping("/{id}")
     public ResponseEntity<Citizen> getCitizenById(@PathVariable String id) {
         Optional<Citizen> citizen = citizenService.getCitizenById(id);
@@ -43,7 +43,7 @@ public class CitizenController {
         return ResponseEntity.ok(savedCitizen); // 200 OK με τον αποθηκευμένο πολίτη
     }
 
-    // 🔹 DELETE /api/citizens/{id} - Διαγραφή πολίτη με βάση το ID
+    // 🔹 DELETE /api/citizens/{id} - Διαγραφή με βάση το ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCitizen(@PathVariable String id) {
         boolean deleted = citizenService.deleteCitizen(id);
