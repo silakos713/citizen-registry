@@ -76,7 +76,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git fetch origin
+          git fetch feature?**
           git checkout develop
           git merge --no-ff ${{ github.ref_name }} -m "Auto-merged by GitHub Actions"
           git push origin develop
