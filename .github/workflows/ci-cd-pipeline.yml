@@ -1,0 +1,78 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - "feature/**" # Εκτελείται μόνο για θεματικά branches
+      - "bugfix/**"
+
+jobs:
+  build:
+    name: Build & Compile Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn clean install -DskipTests
+
+  unit-tests:
+    name: Unit Testing
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Unit Tests
+        run: mvn test -Dgroups="unit"
+
+  integration-tests:
+    name: Integration & API Testing
+    needs: unit-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Run Integration & API Tests
+        run: mvn verify -Dgroups="integration"
+
+  merge-to-develop:
+    name: Merge Branch to Develop
+    needs: integration-tests
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge to Develop
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git fetch origin
+          git checkout develop
+          git merge --no-ff ${{ github.ref_name }} -m "Auto-merged by GitHub Actions"
+          git push origin develop
