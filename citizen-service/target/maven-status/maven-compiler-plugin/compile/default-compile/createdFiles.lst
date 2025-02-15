@@ -1,0 +1,4 @@
+com\example\citizenservice\service\CitizenService.class
+com\example\citizenservice\repository\CitizenRepository.class
+com\example\citizenservice\CitizenServiceApplication.class
+com\example\citizenservice\controller\CitizenController.class
