@@ -5,6 +5,7 @@ on:
     branches:
       - "feature/**" # Εκτελείται μόνο για θεματικά branches
       - "bugfix/**"
+      - "develop"
 
 jobs:
   build:
