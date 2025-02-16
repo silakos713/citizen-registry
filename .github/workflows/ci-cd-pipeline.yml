@@ -7,8 +7,11 @@ permissions:
 on:
   push:
     branches:
-      - "feature/**" # Εκτελείται μόνο για θεματικά branches
-      - "bugfix/**"
+      - develop
+      - feature/**
+  pull_request:
+    branches:
+      - develop
 
 jobs:
   build:
