@@ -1,10 +1,14 @@
 name: CI/CD Pipeline
 
+permissions:
+  contents: write
+  pull-requests: write
+
 on:
   push:
     branches:
-      - "feature/**" # Εκτελείται μόνο για θεματικά branches
-      - "bugfix/**"
+      - "feature/**"  # Εκτελείται για όλα τα feature branches
+      - "bugfix/**"   # Εκτελείται για bugfix branches
 
 jobs:
   build:
@@ -58,7 +62,7 @@ jobs:
         run: mvn verify -Dgroups="integration"
 
   merge-to-develop:
-    name: Merge Branch to Develop
+    name: Merge Feature Branch to Develop
     needs: integration-tests
     runs-on: ubuntu-latest
     if: success()
@@ -72,7 +76,7 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git fetch origin
+          git fetch --all
           git checkout develop
-          git merge --no-ff ${{ github.ref_name }} -m "Auto-merged by GitHub Actions"
+          git merge --no-ff --allow-unrelated-histories $(echo $GITHUB_REF | sed 's/refs\/heads\///') -m "Auto-merged by GitHub Actions"
           git push origin develop
